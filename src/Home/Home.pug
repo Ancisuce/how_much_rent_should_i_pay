@@ -10,24 +10,38 @@
       form.form
         div.form-group
           label(for="square") 室内总面积 ( ㎡ ) 
-          input(type="number" class="form-control" id="square" placeholder="输入总面积"  v-model.number="square")
+          input.form-control(
+            type="number"
+            id="square"
+            placeholder="输入总面积"
+            v-model.number="square"
+          )
         div.form-group
           label(for="rent") 月租金(元)
-          input(type="number" class="form-control" id="rent" placeholder="输入总租金" v-model.number="rent")
+          input.form-control(
+            type="number"
+            id="rent"
+            placeholder="输入总租金"
+            v-model.number="rent"
+          )
 
         div.form-group
           label(for="roomQuantity") 房间数量
-          input(type="number" class="form-control" id="roomQuantity" placeholder="输入房间数量" v-model.number="roomQuantity")
+          input.form-control(
+            type="number"
+            id="roomQuantity"
+            placeholder="输入房间数量"
+            v-model.number="roomQuantity"
+          )
       template(v-if="baseInfoFilled")
         hr
         h3 房间信息
         form.form
-          div(
-            class="form-group"
-            v-for="(room, i) in rooms"
-          )
+          div.form-group(v-for="(room, i) in rooms")
             label(for="squard") 房间 {{ room.index }}# 面积(㎡)
-            input(type="number" class="form-control" id="squard" :placeholder="`输入房间${room.index}#面积`" v-model.number="rooms[i].square")
+            input.form-control(
+              type="number"
+              id="squard" :placeholder="`输入房间${room.index}#面积`" v-model.number="rooms[i].square")
         hr
         h3 房租方案
         h4 只按房间面积均摊
