@@ -1,0 +1,19 @@
+transition(name="modal" v-if="showModal")
+  div.modal-mask
+    div.modal-wrapper
+      div.modal-container
+        div.modal-header
+          slot(name="header")
+
+        div.modal-body
+          slot(name="body")
+
+        div.modal-footer
+          slot(name="footer")
+            button.btn.btn-danger(
+              @click="close"
+            ) 取消
+            button.btn.btn-success(
+              @click="confirm"
+            ) 确认
+  

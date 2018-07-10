@@ -1,0 +1,5 @@
+{
+  "name": "Modal",
+  "main": "./main.vue",
+  "priavate": true
+}
