@@ -1,13 +1,23 @@
+import store from 'store'
+import modal from '@/Modal'
+
 export default {
   name: 'Home',
+
+  components: {
+     modal
+  },
+
   data () {
     return {
+      showModal: false,
       square: '',
       roomQuantity: null,
       rent: '',
       rooms: []
     }
   },
+
   watch: {
     roomQuantity (value) {
       const rooms = []
@@ -21,6 +31,7 @@ export default {
       this.rooms = rooms
     }
   },
+
   computed: {
     baseInfoFilled () {
       return this.square && this.roomQuantity && this.rent
@@ -68,14 +79,26 @@ export default {
           publicRent: (publicM2 * avarageM2Rent / 3).toFixed(2)
         }
       })
-    },
+    }
+  },
 
+  methods: {
     reset () {
       window.reload()
     },
     
-    saveData () {},
-    
-    loadData () {}
+    saveData () {
+      store.set('Record', this.$data)
+    },
+
+    confirmSave () {
+      const name = this.$refs.modal.name
+      console.log(name)
+    },
+
+    loadData (key) {
+      const data = store.get('Record')
+      this.$set('data', data)
+    }
   }
 }

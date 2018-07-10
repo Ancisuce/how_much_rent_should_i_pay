@@ -2,6 +2,10 @@
   .row
     .col-md-9
       h1 合租房租计算器
+      button.btn.btn-primary(
+        @click="showModal = true"
+        v-if="baseInfoFilled"
+      ) 保存当前方案
       h3 基本信息
       form.form
         div.form-group
@@ -27,7 +31,7 @@
         hr
         h3 房租方案
           span 保存方案
-        h4 按房间面积均摊
+        h4 只按房间面积均摊
         table.table
           thead
             tr
@@ -56,3 +60,8 @@
               td ￥ {{ rent.rent }}
               td ￥ {{ rent.privateRent }}
               td ￥ {{ rent.publicRent }}
+  modal(
+    ref="modal"
+    :showModal="showModal"
+    @confirm="confirmSave"
+  )
