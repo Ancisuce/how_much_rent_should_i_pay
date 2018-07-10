@@ -10,6 +10,11 @@ export default {
 
   data () {
     return {
+      loadList: [],
+      save: {
+        key: '',
+        value: ''
+      },
       showModal: false,
       square: '',
       roomQuantity: null,
@@ -84,21 +89,39 @@ export default {
 
   methods: {
     reset () {
-      window.reload()
+      location.reload()
     },
     
+    showSaveModal () {
+      this.save.key = Date.now()
+      this.showModal = true
+    },
     saveData () {
       store.set('Record', this.$data)
     },
 
     confirmSave () {
-      const name = this.$refs.modal.name
-      console.log(name)
-    },
+      let index = store.get('INDEX') || []
+      index.push(this.save)
+      store.set('INDEX', index)
 
-    loadData (key) {
-      const data = store.get('Record')
-      this.$set('data', data)
+      const { square, roomQuantity, rent, rooms } = this.$data
+      store.set(this.save.key, { square, roomQuantity, rent, rooms })
+      this.showModal = false
+      this.reset()
+    },
+    load (key) {
+      const data = store.get(key)
+      for( const [key, value] of Object.entries(data)) {
+        this[key] = value
+      }
+    },
+    loadData () {
+      this.loadList = store.get('INDEX') || []
     }
+  },
+
+  mounted () {
+    this.loadData()
   }
 }

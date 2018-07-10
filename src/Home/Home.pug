@@ -3,7 +3,7 @@
     .col-md-9
       h1 合租房租计算器
       button.btn.btn-primary(
-        @click="showModal = true"
+        @click="showSaveModal"
         v-if="baseInfoFilled"
       ) 保存当前方案
       h3 基本信息
@@ -30,7 +30,6 @@
             input(type="number" class="form-control" id="squard" :placeholder="`输入房间${room.index}#面积`" v-model.number="rooms[i].square")
         hr
         h3 房租方案
-          span 保存方案
         h4 只按房间面积均摊
         table.table
           thead
@@ -60,8 +59,25 @@
               td ￥ {{ rent.rent }}
               td ￥ {{ rent.privateRent }}
               td ￥ {{ rent.publicRent }}
+    .col-md-3.history
+      p 历史记录
+      ol(v-if="loadList")
+        li.text-primary(
+          v-for="(item, key) in loadList"
+          @click="load(item.key)"
+        ) {{ item.value }}
   modal(
     ref="modal"
     :showModal="showModal"
     @confirm="confirmSave"
   )
+    div(slot="header") 编号：{{ save.key }}
+    form.form(slot="body")
+      div.form-group
+        label(for="save") 方案名称
+        input.form-control(
+          type="text"
+          id="save"
+          placeholder="输入方案名称" 
+          v-model="save.value"
+        )
