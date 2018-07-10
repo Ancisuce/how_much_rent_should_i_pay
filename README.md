@@ -1,6 +1,7 @@
 # rent
 
 > A Vue.js project
+## 开箱即用，一看就懂
 
 ## Build Setup
 
